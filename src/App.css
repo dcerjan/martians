@@ -1,5 +1,8 @@
+@import "./styles/Colors.css";
+
 .App {
   text-align: center;
+  background-color: var(--martian-dark);
 }
 
 .App-logo {
