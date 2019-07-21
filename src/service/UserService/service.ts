@@ -1,6 +1,8 @@
 import { User } from '../../record/User';
 import { Api } from '../Api';
 import { DomainError } from '../../record/DomainError';
+import { dispatch } from '../../store/store';
+import { usersLoadSuccess } from './actions';
 
 export type LoginRequestData =
   & Pick<User, 'email'>
@@ -28,3 +30,13 @@ export const login = async (data: LoginRequestData): Promise<User> =>
 export const logout = async (): Promise<void> =>
   new Promise((resolve, _) =>
     window.setTimeout(() => resolve(), 1000))
+
+
+export const loadUsers = async (): Promise<User[]> =>
+  new Promise((resolve, reject) =>
+    Api.get<User[]>('users')
+      .then((result) => {
+        dispatch(usersLoadSuccess(result.data) || [])
+        resolve(result.data)
+      })
+      .catch((error) => reject(new DomainError(error))))

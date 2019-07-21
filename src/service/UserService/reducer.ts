@@ -5,12 +5,14 @@ import { UserServiceActionType, UserServiceAction } from './actions';
 
 export interface UserServiceState {
   current: User | null
+  users: User[]
 }
 
 const UserServiceStateL = lens<UserServiceState>()
 
 export const userServiceState: UserServiceState = {
-  current: null
+  current: null,
+  users: [],
 }
 
 export const userServiceReducer = (state = userServiceState, action: UserServiceAction) => {
@@ -21,6 +23,9 @@ export const userServiceReducer = (state = userServiceState, action: UserService
 
   case UserServiceActionType.USER_LOGOUT_SUCCESS:
     return UserServiceStateL.current.set(null)(state)
+
+  case UserServiceActionType.USERS_LOAD_SUCCESS:
+    return UserServiceStateL.users.set(action.users)(state)
 
   default:
     return state

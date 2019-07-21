@@ -10,3 +10,9 @@ export const currentUserSelector = createSelector(
   (state) =>
     state.current
 )
+
+export const allUsersSelector = createSelector(
+  [userServiceStateSelector],
+  (state) =>
+    state.users
+)

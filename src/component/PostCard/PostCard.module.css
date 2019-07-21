@@ -1,0 +1,5 @@
+.PostCard {
+  border: 1px solid var(--martian-red);
+  border-radius: 4px;
+  color: var(--martian-red)
+}
