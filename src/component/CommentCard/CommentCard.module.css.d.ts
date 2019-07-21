@@ -3,10 +3,7 @@
 interface CssExports {
   'Author': string;
   'Body': string;
-  'Comments': string;
-  'PostCard': string;
-  'PostLink': string;
-  'Title': string;
+  'Comment': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

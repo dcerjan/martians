@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 import { Page } from '../../component/Page';
-import { PostsList } from './PostsList';
+import { ViewPost } from './ViewPost';
 import { User } from '../../record/User';
 
 const permissionToView = (user: User | null) => Boolean(user)
 
-export const Posts: React.FC<{}> = () => (
+export const Post: React.FC<{}> = () => (
   <Page
-    title='Martian Forum - Posts'
+    title='Martian Forum - Viewing Post'
     allowAccess={permissionToView}
   >
-    <PostsList />
+    <ViewPost />
   </Page>
 )

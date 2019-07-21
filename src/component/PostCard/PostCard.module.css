@@ -32,7 +32,14 @@
     text-align: left;
     width: 100%;
     font-size: 120%;
-    color: var(--martian-gray)
+    color: var(--martian-gray);
+
+    & > .PostLink {
+      &:link { color: inherit; }
+      &:visited { color: inherit; }
+      &:hover { color: var(--martian-lightgray); }
+      &:active { color: var(--martian-lightgray); }
+    }
   }
 
   & > .Author {
@@ -47,5 +54,9 @@
     text-align: left;
     width: 100%;
     color: var(--martian-lightgray)
+  }
+
+  & > .Comments {
+
   }
 }

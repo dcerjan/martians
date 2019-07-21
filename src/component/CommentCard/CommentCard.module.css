@@ -1,0 +1,15 @@
+.Comment {
+  text-align: left;
+  margin: 20px;
+  color: var(--martian-gray);
+  font-size: 90%;
+
+  & .Author {
+    margin-bottom: 6px;
+    font-weight: bolder;
+  }
+
+  & .Body {
+
+  }
+}

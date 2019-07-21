@@ -4,6 +4,7 @@ import { fuzzy } from 'fast-fuzzy'
 
 import { connect } from '../../store/connect';
 import { Post } from '../../record/Post';
+import { Comment } from '../../record/Comment';
 import { loadPosts } from '../../service/PostsService';
 import { LoadingPortal } from '../../component/LoadingPortal';
 import { allPostsSelector } from '../../service/PostsService/selectors';
@@ -12,6 +13,8 @@ import { allUsersSelector } from '../../service/UserService/selectors';
 import { User } from '../../record/User';
 import { loadUsers } from '../../service/UserService/service';
 import { PostsFilter } from './PostsFilter';
+import { allCommentsSelector } from '../../service/CommentsService/selectors';
+import { loadComments } from '../../service/CommentsService';
 
 interface PostsListPublicProps {
 }
@@ -20,6 +23,7 @@ interface PostsListState {
   loading: {
     posts: boolean
     users: boolean
+    comments: boolean
   }
   filter: string
 }
@@ -27,12 +31,14 @@ interface PostsListState {
 interface PostsListInjectedStateProps {
   posts: Post[]
   users: User[]
+  comments: Comment[]
 }
 
 
 const mapState = createStructuredSelector<any, PostsListInjectedStateProps>({
   posts: allPostsSelector,
   users: allUsersSelector,
+  comments: allCommentsSelector,
 })
 
 class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsListInjectedStateProps, PostsListState> {
@@ -42,6 +48,7 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
     loading: {
       posts: false,
       users: false,
+      comments: false,
     },
     filter: ''
   }
@@ -54,10 +61,14 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
     this.setState({ loading: { ...this.state.loading, users: true } }, () =>
       loadUsers().then(() =>
         this.setState({ loading: { ...this.state.loading, users: false } })))
+
+    this.setState({ loading: { ...this.state.loading, comments: true } }, () =>
+      loadComments().then(() =>
+        this.setState({ loading: { ...this.state.loading, comments: false } })))
   }
 
   public render() {
-    const { posts, users } = this.props
+    const { posts, users, comments } = this.props
     const { loading, filter } = this.state
 
     return (
@@ -79,7 +90,9 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
           .map((post) => (
             <PostCard
               key={`${post.id}`}
+              linkTo={`posts/${post.id}`}
               post={post}
+              comments={this.findCommentsForPost(post, comments)}
               user={this.findUserForPost(post, users)}
             />
           )) }
@@ -94,6 +107,9 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
 
   private findUserForPost = (post: Post, users: User[]) =>
     users.find((u) => u.id === post.userId)
+
+  private findCommentsForPost = (post: Post, comments: Comment[]) =>
+    comments.filter((c) => c.postId === post.id)
 
   private onFilterChange = (event: React.SyntheticEvent<HTMLInputElement>) =>
     this.setState({ filter: event.currentTarget.value })
