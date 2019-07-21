@@ -1,0 +1,23 @@
+.Field {
+  color: var(--martian-lightgray);
+}
+
+.TypeLine {
+  width: 100%;
+  border-bottom: 1px solid var(--martian-gray);
+  transition: border 180ms ease;
+
+  &.HasError {
+    border-bottom: 1px solid var(--martian-red);
+  }
+}
+
+.Error {
+  color: var(--martian-red);
+  line-height: 1.6;
+  width: 100%;
+  max-width: 100%;
+  margin: 3px 0px 12px;
+  text-align: left;
+  height: 25px;
+}

@@ -3,6 +3,8 @@
 interface CssExports {
   'Error': string;
   'Field': string;
+  'HasError': string;
+  'TypeLine': string;
 }
 declare var cssExports: CssExports;
 export = cssExports;

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { FieldRenderProps } from 'react-final-form'
 
 import * as styles from './field.module.css'
+import clsx from 'clsx';
 
 interface FieldOptions {
 
@@ -20,7 +21,7 @@ export const field = (
 ): React.FC<P> => {
   const Component = (props: P) => {
     const { meta, input, label } = props
-    const { error } = meta
+    const { error, submitError } = meta
 
     return (
       <div className={styles.Field}>
@@ -28,7 +29,8 @@ export const field = (
         <div>
           <InputField {...props} />
         </div>
-        { error && <div className={styles.Error}>{error}</div> }
+        <div className={clsx(styles.TypeLine, (error || submitError) && styles.HasError)}/>
+        <div className={styles.Error}>{error || submitError}</div>
       </div>
     )
   }

@@ -9,7 +9,7 @@ type InputPublicProps =
   & FieldRenderProps<string, HTMLInputElement>
   & { className?: string, placeholder?: string }
 
-export const PlainInput: React.FC<InputPublicProps> = ({ className, input, placeholder }) => (
+export const PlainInput: React.FC<InputPublicProps> = ({ className, input, placeholder, meta }) => (
   <input
     className={clsx(styles.Input, className)}
     { ...input }
