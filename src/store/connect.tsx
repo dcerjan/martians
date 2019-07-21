@@ -1,0 +1,56 @@
+import * as React from 'react'
+import { AnyObject } from 'react-final-form';
+
+import { State, Action, subscribe, getState } from './store';
+
+export const connect = <S extends State, R extends AnyObject, P extends {} = {}, D extends { [key: string]: (...args: any) => Action<string> } = {}>(
+  mapState?: (state: Readonly<S>) => R,
+  mapDispatch?: D,
+) => (
+  Container: React.ComponentClass<P & R & D> | React.FunctionComponent<P & R & D>
+) => {
+  class WrappedContainer extends React.PureComponent<P, { lastMappedState: R | null }> {
+    static displayName = `Connected[${Container.displayName}]`
+
+    private revoke: () => void = () => void(0)
+
+    public lastMappedState: R | undefined
+
+    constructor(props: any) {
+      super(props)
+
+      if (mapState != null) {
+        this.revoke = subscribe(this.remapState)
+      }
+      this.remapState()
+    }
+
+    public componentDidMount() {
+      this.remapState()
+    }
+
+    public componentWillUnmount() {
+      if (this.revoke != null) {
+        this.revoke()
+      }
+    }
+
+    public render() {
+      return (
+        <Container
+          {...this.props}
+          {...((this.lastMappedState || {}) as R)}
+          {...(mapDispatch)}
+        />
+      )
+    }
+
+    private remapState = () => {
+      if (mapState != null) {
+        this.lastMappedState = mapState(getState() as S)
+      }
+    }
+  }
+
+  return WrappedContainer
+}

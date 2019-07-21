@@ -65,6 +65,7 @@
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-transition-group": "^4.2.1",
+    "reselect": "^4.0.0",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
