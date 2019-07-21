@@ -14,10 +14,10 @@ type FieldProps<T = any, H extends HTMLElement = HTMLInputElement> =
 
 export const field = (
   options?: FieldOptions,
-) => <P extends FieldProps>(
+) => <P extends FieldProps<T, H>, T = any, H extends HTMLElement = HTMLInputElement>(
   InputField: React.ComponentClass<P> | React.FunctionComponent<P>,
 ): React.FC<P> => {
-  const Component = (props: P) => {
+  const Component: React.FC<P> = (props: P) => {
     const { meta, input, label } = props
     const { error, submitError, pristine } = meta
 

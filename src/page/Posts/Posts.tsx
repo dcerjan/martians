@@ -4,7 +4,7 @@ import { Page } from '../../component/Page';
 import { PostsList } from './PostsList';
 import { User } from '../../record/User';
 
-const permissionToView = (user: User | null) => Boolean(user)
+const permissionToView = (user: User | null) => true || Boolean(user)
 
 export const Posts: React.FC<{}> = () => (
   <Page

@@ -47,3 +47,7 @@ declare module '*.svg' {
   const src: string;
   export default src;
 }
+
+declare module 'fast-fuzzy' {
+  export function fuzzy (query: string, term: string): number
+}

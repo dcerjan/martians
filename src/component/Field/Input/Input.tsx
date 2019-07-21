@@ -7,7 +7,7 @@ import { field } from '../decorators/field'
 
 type InputPublicProps =
   & FieldRenderProps<string, HTMLInputElement>
-  & { className?: string, placeholder?: string }
+  & { className?: string, placeholder?: string, label?: string }
 
 export const PlainInput: React.FC<InputPublicProps> = ({ className, input, placeholder }) => (
   <input

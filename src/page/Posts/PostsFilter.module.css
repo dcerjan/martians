@@ -1,0 +1,12 @@
+.PostsFilter {
+  border: 1px solid var(--martian-red);
+  border-radius: 4px;
+  color: var(--martian-red);
+  box-sizing: border-box;
+  padding: 20px 20px 0px 20px;
+  margin: 20px;
+  min-width: 240px;
+  max-width: 600px;
+  width: calc(100% - 40px);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2), 0 10px 10px rgba(0,0,0,0.18);
+}

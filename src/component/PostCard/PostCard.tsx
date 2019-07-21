@@ -12,8 +12,8 @@ interface PostPublicProps {
 
 export const PostCard: React.FC<PostPublicProps> = ({ post, user }) => (
   <div className={styles.PostCard}>
-    <div>{post.title}</div>
-    <div>Author: {user == null ? 'Anonymous' : user.email}</div>
-    <div>{post.body}</div>
+    <div className={styles.Title}>{post.title}</div>
+    <div className={styles.Author}>Author: {user == null ? 'Anonymous' : user.name}</div>
+    <div className={styles.Body}>{post.body}</div>
   </div>
 )
