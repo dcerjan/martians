@@ -1,6 +1,6 @@
 export class DomainError extends Error {
-  constructor (message: string) {
-    super(`[DomainError] ${message}`)
+  constructor (public readonly originalMessage: string) {
+    super(`[DomainError] ${originalMessage}`)
 
     Object.setPrototypeOf(this, DomainError.prototype);
   }
