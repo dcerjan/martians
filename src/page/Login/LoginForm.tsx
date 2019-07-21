@@ -16,7 +16,6 @@ export const LoginForm = form<LoginRequestData>({
     .then(() => history.push('/app'))
     .catch((err: DomainError): SubmissionErrors => ({
       [FORM_ERROR]: err.originalMessage,
-      'email': 'boo'
     })),
 })(() =>
   <div className={styles.LoginForm}>
