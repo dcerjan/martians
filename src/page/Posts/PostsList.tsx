@@ -69,7 +69,7 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
 
   public render() {
     const { posts, users, comments } = this.props
-    const { loading, filter } = this.state
+    const { filter } = this.state
 
     return (
       <div>
@@ -78,7 +78,7 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
           filterValue={filter}
         />
 
-        { posts
+        { !this.isLoading() && posts
           .filter((post) => {
             const user = this.findUserForPost(post, users)
             if (user != null) {
@@ -99,10 +99,16 @@ class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsList
 
         <LoadingPortal
           message='Loading posts...'
-          visible={loading.posts || loading.users}
+          visible={this.isLoading()}
         />
       </div>
     )
+  }
+
+  private isLoading = () => {
+    const { loading } = this.state
+
+    return loading.posts || loading.users || loading.comments
   }
 
   private findUserForPost = (post: Post, users: User[]) =>

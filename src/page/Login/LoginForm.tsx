@@ -7,11 +7,11 @@ import { Field } from 'react-final-form';
 import { Input } from '../../component/Field/Input';
 import { required, minLength3 } from '../../component/Field/validation';
 import { DomainError } from '../../record/DomainError';
-
-import * as styles from './LoginForm.module.css'
 import { dispatch } from '../../store/store';
 import { loginSuccess } from '../../service/UserService';
 import { Password } from '../../component/Field/Input/Input';
+
+import * as styles from './LoginForm.module.css'
 
 export const LoginForm = form<LoginRequestData>({
   endpoint: 'login',
@@ -26,18 +26,18 @@ export const LoginForm = form<LoginRequestData>({
 })(() =>
   <div className={styles.LoginForm}>
     <Field
-      name="email"
-      label="Email"
+      name='email'
+      label='Email'
       component={Input}
-      placeholder="e-mail"
+      placeholder='e-mail'
       validate={required}
     />
 
     <Field
-      name="password"
-      label="Password"
+      name='password'
+      label='Password'
       component={Password}
-      placeholder="password"
+      placeholder='password'
       validate={minLength3}
     />
   </div>

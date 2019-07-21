@@ -11,6 +11,8 @@ import { allUsersSelector } from '../../service/UserService/selectors';
 import { User } from '../../record/User';
 import { allCommentsSelector } from '../../service/CommentsService/selectors';
 
+import * as styles from './ViewPost.module.css'
+
 interface ViewPostPublicProps {
 }
 
@@ -39,7 +41,7 @@ class ViewPostImpl extends React.PureComponent<ViewPostPublicProps & RouteCompon
       return <Redirect to='/notFound/' />
     } else {
       return (
-        <div>
+        <div className={styles.ViewPost}>
           <PostCard
             post={post}
             comments={this.findCommentsForPost(post, comments)}

@@ -17,12 +17,33 @@ export const Routes = withRouter(({ location }) => (
         unmountOnExit
       >
         <Switch location={location}>
-          <Route path="/" exact component={Login} />
-          <Route path="/app" exact component={Posts} />
-          <Route path="/posts/:id" exact component={Post} />
+          <Route
+            path='/'
+            exact
+            component={Login}
+          />
 
-          <Route path="/forbidden" component={Error403} />
-          <Route path="*" component={Error404} />
+          <Route
+            path='/app'
+            exact
+            component={Posts}
+          />
+
+          <Route
+            path='/posts/:id'
+            exact
+            component={Post}
+          />
+
+          <Route
+            path='/forbidden'
+            component={Error403}
+          />
+
+          <Route
+            path='*'
+            component={Error404}
+          />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
