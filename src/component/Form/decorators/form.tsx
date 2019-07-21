@@ -8,7 +8,6 @@ import { SubmissionErrors } from 'final-form';
 import { Button } from '../../Button';
 
 import * as styles from './form.module.css'
-import { CSSTransition } from 'react-transition-group';
 
 type SubmitFunction<S extends {}> = (values: S) => Promise<SubmissionErrors | undefined | void>
 
@@ -61,14 +60,10 @@ export const form = <S extends {}>(
                   type='submit'
                 />
 
-                <CSSTransition
-                  in={props.submitting}
-                  timeout={200}
-                  classNames='Fade'
-                  unmountOnExit
-                >
-                  <LoadingPortal message='Submitting...'/>
-                </CSSTransition>
+                <LoadingPortal
+                  message='Submitting...'
+                  visible={props.submitting}
+                />
               </form>
             )}
           />
