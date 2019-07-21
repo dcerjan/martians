@@ -9,12 +9,17 @@ export const connect = <S extends State, R extends AnyObject, P extends {} = {},
 ) => (
   Container: React.ComponentClass<P & R & D> | React.FunctionComponent<P & R & D>
 ) => {
-  class WrappedContainer extends React.PureComponent<P, { lastMappedState: R | null }> {
+  class WrappedContainer extends React.PureComponent<P, { token: number }> {
     static displayName = `Connected[${Container.displayName}]`
 
     private revoke: () => void = () => void(0)
+    private mounted = false
 
     public lastMappedState: R | undefined
+
+    public state = {
+      token: 0
+    }
 
     constructor(props: any) {
       super(props)
@@ -26,10 +31,12 @@ export const connect = <S extends State, R extends AnyObject, P extends {} = {},
     }
 
     public componentDidMount() {
+      this.mounted = true
       this.remapState()
     }
 
     public componentWillUnmount() {
+      this.mounted = false
       if (this.revoke != null) {
         this.revoke()
       }
@@ -38,6 +45,7 @@ export const connect = <S extends State, R extends AnyObject, P extends {} = {},
     public render() {
       return (
         <Container
+          key={this.state.token}
           {...this.props}
           {...((this.lastMappedState || {}) as R)}
           {...(mapDispatch)}
@@ -48,6 +56,9 @@ export const connect = <S extends State, R extends AnyObject, P extends {} = {},
     private remapState = () => {
       if (mapState != null) {
         this.lastMappedState = mapState(getState() as S)
+        if (this.mounted) {
+          this.setState({ token: this.state.token + 1 })
+        }
       }
     }
   }

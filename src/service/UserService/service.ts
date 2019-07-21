@@ -1,6 +1,6 @@
-import { User } from '../record/User';
-import { Api } from './Api';
-import { DomainError } from '../record/DomainError';
+import { User } from '../../record/User';
+import { Api } from '../Api';
+import { DomainError } from '../../record/DomainError';
 
 export type LoginRequestData =
   & Pick<User, 'email'>

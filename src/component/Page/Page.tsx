@@ -5,7 +5,7 @@ import * as styles from './Page.module.css'
 import { connect } from '../../store/connect';
 import { User } from '../../record/User';
 import { createStructuredSelector } from 'reselect';
-import { userSelector } from './state/seelctors';
+import { currentUserSelector } from '../../service/UserService/selectors';
 
 interface PagePublicProps {
   title?: string
@@ -17,7 +17,7 @@ interface PageInjectedStateProps {
 }
 
 const mapState = createStructuredSelector<any, PageInjectedStateProps>({
-  user: userSelector
+  user: currentUserSelector
 })
 
 export class PageImpl extends React.PureComponent<RouteComponentProps & PagePublicProps & PageInjectedStateProps> {
@@ -64,6 +64,8 @@ export class PageImpl extends React.PureComponent<RouteComponentProps & PagePubl
   private evaluatePermissions = (user: User | null) => {
     const { history } = this.props
     if (!this.canAccess(user)) {
+      // Required because of internal setState on CSSTransition, otherwise it
+      // explodes inside of a setState recursion in its componentWillReceiveProps
       this.timeout = window.setTimeout(() => history.replace('/forbidden'), 0)
     }
   }

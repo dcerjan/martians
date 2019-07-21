@@ -1,0 +1,1 @@
+export const USER_SERVICE_STATE_KEY = 'service/user'
