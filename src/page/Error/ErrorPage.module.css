@@ -1,0 +1,16 @@
+.ErrorContainer {
+  color: var(--martian-red);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.ErrorCode {
+  margin-top: -72px;
+  font-size: 72px;
+}
+
+.ErrorMessage {
+  margin-top: 48px;
+}

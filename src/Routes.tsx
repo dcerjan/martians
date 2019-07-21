@@ -4,6 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { Login } from './page/Login/Login';
 import { Posts } from './page/Posts';
+import { Error404 } from './page/Error/ErrorPage';
 
 export const Routes = withRouter(({ location }) => (
   <React.Fragment>
@@ -17,6 +18,8 @@ export const Routes = withRouter(({ location }) => (
         <Switch location={location}>
           <Route path="/" exact component={Login} />
           <Route path="/app" exact component={Posts} />
+
+          <Route path="*" component={Error404} />
         </Switch>
       </CSSTransition>
     </TransitionGroup>
