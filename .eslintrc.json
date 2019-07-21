@@ -1,6 +1,7 @@
 {
   "extends": "react-app",
   "rules": {
-    "quotes": ["error", "single"]
+    "quotes": ["error", "single"],
+    "no-mixed-operators": "off"
   }
 }
