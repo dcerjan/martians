@@ -5,14 +5,12 @@ import * as styles from './field.module.css'
 import clsx from 'clsx';
 
 interface FieldOptions {
-
+  // If the need arises in the future, add field options here
 }
 
 type FieldProps<T = any, H extends HTMLElement = HTMLInputElement> =
   & FieldRenderProps<T, H>
-  & {
-    label?: string
-  }
+  & { label?: string }
 
 export const field = (
   options?: FieldOptions,

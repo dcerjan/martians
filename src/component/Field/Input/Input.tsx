@@ -9,12 +9,12 @@ type InputPublicProps =
   & FieldRenderProps<string, HTMLInputElement>
   & { className?: string, placeholder?: string }
 
-export const PlainInput: React.FC<InputPublicProps> = ({ className, input, placeholder, meta }) => (
+export const PlainInput: React.FC<InputPublicProps> = ({ className, input, placeholder }) => (
   <input
     className={clsx(styles.Input, className)}
     { ...input }
     id={input.name}
-    type="text"
+    type='text'
     placeholder={placeholder}
   />
 )
@@ -22,3 +22,19 @@ export const PlainInput: React.FC<InputPublicProps> = ({ className, input, place
 PlainInput.displayName = 'PlainInput'
 
 export const Input = field()(PlainInput)
+
+
+export const PlainPassword: React.FC<InputPublicProps> = ({ className, input, placeholder }) => (
+  <input
+    className={clsx(styles.Input, className)}
+    { ...input }
+    id={input.name}
+    type='password'
+    placeholder={placeholder}
+  />
+)
+
+PlainPassword.displayName = 'PlainPassword'
+
+export const Password = field()(PlainPassword)
+
