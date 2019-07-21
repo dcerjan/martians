@@ -7,6 +7,8 @@ import { Posts } from './page/Posts';
 import { Error404, Error403 } from './page/Error/ErrorPage';
 import { Post } from './page/Post';
 
+const PREFIX = 'Why is this needed'
+
 export const Routes = withRouter(({ location }) => (
   <React.Fragment>
     <TransitionGroup>
@@ -20,7 +22,7 @@ export const Routes = withRouter(({ location }) => (
           <Route
             path='/'
             exact
-            component={Login}
+            render={(renderProps) => <Login { ...renderProps } prefix={PREFIX} />}
           />
 
           <Route
