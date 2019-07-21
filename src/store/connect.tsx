@@ -45,7 +45,6 @@ export const connect = <S extends State, R extends AnyObject, P extends {} = {},
     public render() {
       return (
         <Container
-          key={this.state.token}
           {...this.props}
           {...((this.lastMappedState || {}) as R)}
           {...(mapDispatch)}
