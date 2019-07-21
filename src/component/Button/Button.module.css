@@ -1,0 +1,39 @@
+.Button {
+  border: 2px solid var(--martian-red);
+  border-radius: 9px;
+  background-color: var(--martian-dark);
+  color: var(--martian-red);
+  min-width: 152px;
+  min-height: 42px;
+  margin: 10px;
+  transform: scale3d(1.0, 1.0, 1.0);
+  opacity: 1.0;
+
+  box-shadow: 0 6px 24px rgba(0,0,0,0.2), 0 10px 10px rgba(0,0,0,0.18);
+
+  transition: background-color 160ms ease
+            , transform 160ms ease
+            , color 160ms ease
+            , border-color 160ms ease
+            , opacity 160ms ease;
+
+  &:hover {
+    background-color: var(--martian-red);
+    color: var(--martian-dark);
+    transform: scale3d(1.05, 1.05, 1.0);
+  }
+
+  &:disabled {
+    background-color: var(--martian-gray);
+    color: var(--martian-darkgray);
+    border-color: var(--martian-darkgray);
+    transform: scale3d(1.0, 1.0, 1.0);
+  }
+
+  &:focus {
+    background-color: var(--martian-red);
+    color: var(--martian-dark);
+    opacity: 0.7;
+    transform: scale3d(0.95, 0.95, 1.0);
+  }
+}
