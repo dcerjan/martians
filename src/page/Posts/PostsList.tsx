@@ -1,42 +1,59 @@
-import { AnyObject } from 'final-form';
 import * as React from 'react'
 import { createStructuredSelector } from 'reselect'
 
 import { connect } from '../../store/connect';
 import { Post } from '../../record/Post';
-import { initialState } from './state/reducer';
+import { loadPosts } from '../../service/PostsService';
+import { LoadingPortal } from '../../component/LoadingPortal';
+import { allPostsSelector } from '../../service/PostsService/selectors';
+import { getState } from '../../store/store';
 
 interface PostsListPublicProps {
+}
+
+interface PostsListState {
+  loading: boolean
 }
 
 interface PostsListInjectedStateProps {
   posts: Post[]
 }
 
-const postsSelector = (state: AnyObject): Post[] => state.posts.posts
 
-const mapState = createStructuredSelector<AnyObject, PostsListInjectedStateProps>({
-  posts: postsSelector,
+const mapState = createStructuredSelector<any, PostsListInjectedStateProps>({
+  posts: allPostsSelector,
 })
 
-export const PostsList = connect(
-  mapState,
-)(
-  class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsListInjectedStateProps> {
-    public componentDidMount() {
-      // fetch post data
-    }
+class PostsListImpl extends React.PureComponent<PostsListPublicProps & PostsListInjectedStateProps, PostsListState> {
+  static displayName = 'PostsListImpl'
 
-    public render() {
-      const { posts } = this.props
+  public state: PostsListState = {
+    loading: false
+  }
 
-      console.log(posts)
+  public componentDidMount() {
+    this.setState({ loading: true }, () =>
+      loadPosts().then(() =>
+        this.setState({ loading: false })))
+  }
 
-      return (
-        <div>
-          { posts.map((post) => <pre key={post.id}>{JSON.stringify(post, null, 2)}</pre>)}
-        </div>
-      )
-    }
-  },
-)
+  public render() {
+    const { posts } = this.props
+    const { loading } = this.state
+
+    console.log(posts, mapState(getState()), getState())
+
+    return (
+      <div>
+        { posts.map((post) => <pre key={post.id}>{JSON.stringify(post, null, 2)}</pre>)}
+
+        <LoadingPortal
+          message='Loading posts...'
+          visible={loading}
+        />
+      </div>
+    )
+  }
+}
+
+export const PostsList = connect(mapState)(PostsListImpl)
