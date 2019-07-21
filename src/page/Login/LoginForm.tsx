@@ -11,13 +11,14 @@ import { DomainError } from '../../record/DomainError';
 import * as styles from './LoginForm.module.css'
 import { dispatch } from '../../store/store';
 import { loginSuccess } from '../../service/UserService';
+import { Password } from '../../component/Field/Input/Input';
 
 export const LoginForm = form<LoginRequestData>({
   endpoint: 'login',
   onSubmit: (history) => (state) => login(state)
     .then((user) => {
       dispatch(loginSuccess(user))
-      history.push('/app')
+      window.setTimeout(() => history.push('/app'), 0)
     })
     .catch((err: DomainError): SubmissionErrors => ({
       [FORM_ERROR]: err.originalMessage,
@@ -35,9 +36,8 @@ export const LoginForm = form<LoginRequestData>({
     <Field
       name="password"
       label="Password"
-      component={Input}
+      component={Password}
       placeholder="password"
-      type="password"
       validate={minLength3}
     />
   </div>
