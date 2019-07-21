@@ -26,15 +26,16 @@ export type Reducer<S extends {}, A extends Action> = (state: S, action: A) => S
 const registeredReducers: { [key: string]: Reducer<any, any> } = {}
 
 let rootState: State = {}
+export const getState = (): Readonly<State> => rootState
 
-let rootReducer: Reducer<any, any> = (state = {}, action) =>
+const rootReducer: Reducer<any, any> = (lastState = {}, action) =>
   Object.entries(registeredReducers).reduce((state: State, [key, reducer]) => {
-    state[key] = reducer(state[key], action)
+    state[key] = reducer(lastState[key], action)
     return state
-  }, state)
+  }, {})
 
 export const dispatch = <A extends Action>(action: A) => {
-  rootState = rootReducer(rootState, action)
+  rootState = rootReducer(getState(), action)
   subscribers.forEach((cb) => cb())
 }
 
@@ -43,6 +44,5 @@ export const registerReducer = (key: string, reducer: Reducer<any, any>) => {
   dispatch({ type: '@@internal' })
 }
 
-export const getState = (): Readonly<State> => rootState
-
 ;(window as any).getState = getState
+;(window as any).dispatch = dispatch
