@@ -21,7 +21,9 @@ export const field = (
 ): React.FC<P> => {
   const Component = (props: P) => {
     const { meta, input, label } = props
-    const { error, submitError } = meta
+    const { error, submitError, pristine } = meta
+
+    const fieldError = !pristine && (error || submitError)
 
     return (
       <div className={styles.Field}>
@@ -29,8 +31,8 @@ export const field = (
         <div>
           <InputField {...props} />
         </div>
-        <div className={clsx(styles.TypeLine, (error || submitError) && styles.HasError)}/>
-        <div className={styles.Error}>{error || submitError}</div>
+        <div className={clsx(styles.TypeLine, Boolean(fieldError) && styles.HasError)}/>
+        <div className={styles.Error}>{fieldError}</div>
       </div>
     )
   }
