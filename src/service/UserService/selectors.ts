@@ -8,5 +8,5 @@ export const userServiceStateSelector = (state: { [USER_SERVICE_STATE_KEY]: User
 export const currentUserSelector = createSelector(
   [userServiceStateSelector],
   (state) =>
-    (console.log(state), state.current)
+    state.current
 )
